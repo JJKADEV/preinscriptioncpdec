@@ -43,19 +43,15 @@
 <marquee direction="scroll">Un texte défilant créé avec l'élément HTML Marquee et stylé avec les propriétés CSS.</marquee>
 <br> -->
     <div class="main">
-    @if(session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
-  @endif
         <div class="container">
             <div class="signup-content">
                 <div class="signup-img">
                 <img src="{{ asset('nouveaux_bachelier/images/signup-img.jpg') }}" alt="CPEDEC">
                 </div>
                 <div class="signup-form">
-                <form method="post" action="/nouveaux_bacheliers/inscription" name="formulaireab" id="formulaireab" class="register-form" >
-                 @csrf
+                <!--Première partie du formulaire -->  
+        <form method="post" action="/nouveaux_bacheliers/inscription" name="formulaireab" id="formulaireab" class="register-form" enctype="multipart/form-data">
+                @csrf
                 <h2>Identification (NOUVEAUX BACHELIERS)</h2>
                         <div class="form-row">
                             <div class="form-group">
@@ -69,13 +65,13 @@
                         <div class="form-row">
                         <div class="form-group">
                             <label for="ddnaiss" class="label">Date de naissance<span class="ast">*</span></label><input type="date"
-                                                                                                name="dateDeNaissance"
-                                                                                                id="dateDeNaissance">
+                                                                                                name="ddnaiss"
+                                                                                                id="ddnaiss">
                         </div>
                         <div class="form-group">
                             <label for="lieunaiss" class="label">Lieu de naissance<span class="ast">*</span></label><input type="text"
-                                                                                                  name="lieuDeNaissance"
-                                                                                                  id="lieuDeNaissance">
+                                                                                                  name="lieunaiss"
+                                                                                                  id="lieunaiss">
                         </div>
                         <div class="form-group">
                             <label for="nationalite" class="label">Nationalité<span class="ast">*</span></label><input type="text"
@@ -97,7 +93,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="etablissementorg" class="label">&Eacute;tablissemnt d'origine<span class="ast">*</span></label>
-                                <input type="text" name="etablissementDorigine" id="etablissementDorigine">
+                                <input type="text" name="etablissemntorg" id="etablissementorg">
                             </div>
                             <div class="form-group">
                                 <label for="serie" class="label">Série du bac<span class="ast">*</span></label>
@@ -109,26 +105,26 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="nomparent" class="label">Nom du parent</label>
-                                <input type="text" name="nomDuParent" id="nomparent">
+                                <input type="text" name="nomparent" id="nomparent">
                             </div>
                             <div class="form-group">
                                 <label for="prenomparent" class="label">Prénom du parent</label>
-                            <input type="text" name="prenomDuParent" id="prenomparent">
+                            <input type="text" name="prenomparent" id="prenomparent">
                         
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="contactparent" class="label">Contact du parent</label>
-                                <input type="text" name="contactDuParent" id="contactparent">
+                                <input type="text" name="contactparent" id="contactparent">
                             </div>
                             <div class="form-group">
                                 <label for="emailparent" class="label">Email du parent</label>
-                                <input type="email" name="emailDuParent" id="emailparent">
+                                <input type="email" name="emailparent" id="emailparent">
                             </div>
                             <div class="form-group">
                                 <label for="adresseparent" class="label">Adresse du parent</label>
-                            <input type="text" name="adresseDuParent" id="adresseparent">
+                            <input type="text" name="adresseparent" id="adresseparent">
                             </div>
                             </div>
 
@@ -152,32 +148,32 @@
                                 <div class="choix"><input type="hidden" value="119" name="ue[]">Comptabilité<span class="ast">*</span></div>
                             </div>
                         </div>
-                        </form>
+                        
                         </div>
                         <div>
                             <button id="bouton-precedent">Précédent</button>
                             <button id="bouton-suivant">Suivant</button>
-                       </div>
-                        <div id="deuxieme-partie">
+                        </div>
+                        <div id="deuxieme-partie" style="display: none;">
                             <!-- Deuxième partie du formulaire -->  
                         <div class="situation">
-                        <form method="post" action="/nouveaux_bacheliers/inscription" name="formulaireab" id="formulaireab" class="register-form" enctype="multipart/form-data">   
-                        @csrf
+                        
+                        
                         <hr><h2>RELEVÉ DE NOTES</h2>
                         
                         <div><h2>Moyennes annuelles</h2></div>
                     <div class="row col3">
                         <div class="form-group">
                             <label for="moyannfran" class="label">Français<span class="ast">*</span></label>
-                            <input type="number" name="moyenneAnnuelleFrancais" id="moyannfran">
+                            <input type="number" name="moyannfran" id="moyannfran">
                         </div>
                         <div class="form-group">
                             <label for="moyannang" class="label">Anglais<span class="ast">*</span></label>
-                            <input type="number" name="moyenneAnnuelleAnglais" id="moyenneAnnuelleAnglais">
+                            <input type="number" name="moyannang" id="moyannang">
                         </div>
                         <div class="form-group">
                             <label for="moyannmath" class="label">Mathématiques<span class="ast">*</span></label>
-                            <input type="number" name="moyenneAnnuelleMath" id="moyenneAnnuelleMath">
+                            <input type="number" name="moyannmath" id="moyannmath">
                         </div>
                     </div>
                     <div><h2>Notes du bac</h2></div>
@@ -185,15 +181,15 @@
 
                         <div class="form-group">
                             <label for="notebacfran" class="label">Français<span class="ast">*</span></label>
-                            <input type="number" name="noteBacFrancais" id="noteBacFrancais">
+                            <input type="number" name="notebacfran" id="notebacfran">
                         </div>
                         <div class="form-group">
                             <label for="notebacang" class="label">Anglais<span class="ast">*</span></label>
-                            <input type="number" name="noteBacAnglais" id="noteBacAnglais">
+                            <input type="number" name="notebacang" id="notebacang">
                         </div>
                         <div class="form-group">
                             <label for="notebacmath" class="label">Mathématiques<span class="ast">*</span></label>
-                            <input type="number" name="noteBacMath" id="noteBacMath">
+                            <input type="number" name="notebacmath" id="notebacmath">
                         </div>
                     </div>
                     <div><h2>Autres</h2></div>
@@ -201,15 +197,15 @@
 
                         <div class="form-group">
                             <label for="mga" class="label">Moyenne générale annuelle<span class="ast">*</span></label>
-                            <input type="number" name="moyenneGeneraleAnnuelle" id="moyenneGeneraleAnnuelle">
+                            <input type="number" name="mga" id="mga">
                         </div>
                         <div class="form-group">
                             <label for="moybac" class="label">Moyenne du bac<span class="ast">*</span></label>
-                            <input type="number" name="moyenneBac" id="moybac">
+                            <input type="number" name="moybac" id="moybac">
                         </div>
                         <div class="form-group">
                             <label for="pointbac" class="label">Points du bac<span class="ast">*</span></label>
-                            <input type="number" name="totalPointBac" id="pointbac">
+                            <input type="number" name="pointbac" id="pointbac">
                         </div>
                     </div>
                 </div>
@@ -268,7 +264,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Enregistrer" class="bg_orange text-white" id="btn-valid-nb"
-                                           name="">
+                                           name="btn-valid-nb">
                                 </div>
                             </div>
                             </div>
@@ -304,21 +300,22 @@ etudiantRadio.addEventListener('click', function() {
     </script>
     <script>
         // Obtenez les références des boutons et des parties du formulaire
-const boutonPrecedent = document.getElementById('bouton-precedent');
-const boutonSuivant = document.getElementById('bouton-suivant');
-const premierePartie = document.getElementById('formulaireab');
-const deuxiemePartie = document.getElementById('deuxieme-partie');
+ // Obtenez les références des boutons et des parties du formulaire
+ const boutonPrecedent = document.getElementById('bouton-precedent');
+    const boutonSuivant = document.getElementById('bouton-suivant');
+    const premierePartie = document.getElementById('formulaireab');
+    const deuxiemePartie = document.getElementById('deuxieme-partie');
 
-// Ajoutez des écouteurs d'événements aux boutons
-boutonPrecedent.addEventListener('click', () => {
-  premierePartie.style.display = 'block';
-  deuxiemePartie.style.display = 'none';
-});
+    // Ajoutez des écouteurs d'événements aux boutons
+    boutonPrecedent.addEventListener('click', () => {
+        premierePartie.style.display = 'block';
+        deuxiemePartie.style.display = 'none';
+    });
 
-boutonSuivant.addEventListener('click', () => {
-  premierePartie.style.display = 'none';
-  deuxiemePartie.style.display = 'block';
-});
+    boutonSuivant.addEventListener('click', () => {
+        premierePartie.style.display = 'none';
+        deuxiemePartie.style.display = 'block';
+    });
     </script>
     <script>
         // Get the select element and the corresponding input field containers

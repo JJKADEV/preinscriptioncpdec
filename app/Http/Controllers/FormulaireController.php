@@ -18,10 +18,11 @@ class FormulaireController extends Controller
         return view('anciens_bacheliers'); // Renvoie la vue anciens_bacheliers.blade.php
     }
 
+    
     public function inscriptionNouveauxBacheliers(Request $request)
     {
        
-       
+        dd($request->all());
         $data = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
