@@ -21,8 +21,9 @@ class FormulaireController extends Controller
     
     public function inscriptionNouveauxBacheliers(Request $request)
     {
-       
+        // Afficher les données du formulaire avant la validation
         dd($request->all());
+
         $data = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
@@ -52,8 +53,13 @@ class FormulaireController extends Controller
             'moyenneBac' => 'required|numeric',
         ]);
 
-        // Enregistrer les données dans la table "nouveaux_bacheliers"
-        NouveauxBacheliers::create($data);
+        try {
+            // Enregistrer les données dans la table "nouveaux_bacheliers"
+            NouveauxBacheliers::create($data);
+        } catch (\Exception $e) {
+            // Afficher les détails de l'erreur
+            dd($e->getMessage());
+        }
 
         // Une fois que les données sont enregistrées, tu peux retourner la fiche d'inscription (si nécessaire)
         // return view('fiche_inscription')->with(['nom' => $data['nom'], 'prenom' => $data['prenom']]);
@@ -61,6 +67,9 @@ class FormulaireController extends Controller
 
     public function inscriptionAnciensBacheliers(Request $request)
     {
+        // Afficher les données du formulaire avant la validation
+        dd($request->all());
+
         $data = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
@@ -85,8 +94,13 @@ class FormulaireController extends Controller
             'cours' => 'required|string|max:255',
         ]);
 
-        // Enregistrer les données dans la table "anciens_bacheliers"
-        AnciensBacheliers::create($data);
+        try {
+            // Enregistrer les données dans la table "anciens_bacheliers"
+            AnciensBacheliers::create($data);
+        } catch (\Exception $e) {
+            // Afficher les détails de l'erreur
+            dd($e->getMessage());
+        }
 
         // Une fois que les données sont enregistrées, tu peux retourner la fiche d'inscription (si nécessaire)
         // return view('fiche_inscription')->with(['nom' => $data['nom'], 'prenom' => $data['prenom']]);

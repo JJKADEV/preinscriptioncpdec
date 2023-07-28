@@ -55,7 +55,7 @@
                     <img src="{{ asset('nouveaux_bachelier/images/signup-img.jpg') }}" alt="CPEDEC">
                 </div>
                 <div class="signup-form">
-                    <form method="post" action="/nouveaux_bacheliers/inscription" id="formulaireab" class="register-form">
+                    <form method="post" action="/nouveaux_bacheliers" id="formulaireab" class="register-form">
                         @csrf
                         <h2>Identification (NOUVEAUX BACHELIERS)</h2>
                         <div class="form-row">

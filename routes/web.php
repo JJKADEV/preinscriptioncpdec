@@ -1,20 +1,22 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FormulaireController;
+use App\Http\Controllers\NouveauxBacheliersController;
 
+// Route for displaying the first step of the nouveaux bacheliers form
+Route::get('/nouveaux_bacheliers', [NouveauxBacheliersController::class, 'showFirstStepForm'])->name('firstStepForm');
 
-// Route pour afficher le formulaire d'inscription des nouveaux bacheliers
-Route::get('/nouveaux_bacheliers', [FormulaireController::class, 'nouveauxBacheliersForm']);
+// Route for processing the first step of the nouveaux bacheliers form (method POST)
+Route::post('/nouveaux_bacheliers', [NouveauxBacheliersController::class, 'processFirstStepForm']);
 
-// Route pour traiter l'inscription des nouveaux bacheliers (méthode POST)
-Route::post('/nouveaux_bacheliers/inscription', [FormulaireController::class, 'inscriptionNouveauxBacheliers']);
+// Route for displaying the second step of the nouveaux bacheliers form
+Route::get('/nouveaux_bacheliers/inscription', [NouveauxBacheliersController::class, 'showSecondStepForm'])->name('secondStepForm');
 
-// Route pour afficher le formulaire d'inscription des anciens bacheliers
+// Route for processing the second step of the nouveaux bacheliers form (method POST)
+Route::post('/nouveaux_bacheliers/inscription', [NouveauxBacheliersController::class, 'processSecondStepForm']);
+
+// Route for displaying the formulaire d'inscription des anciens bacheliers (assuming it's already defined)
 Route::get('/anciens_bacheliers', [FormulaireController::class, 'anciensBacheliersForm']);
 
-// Route pour traiter l'inscription des anciens bacheliers (méthode POST)
+// Route for processing the inscription des anciens bacheliers (assuming it's already defined)
 Route::post('/anciens_bacheliers/inscription', [FormulaireController::class, 'inscriptionAnciensBacheliers']);
-
-
-
