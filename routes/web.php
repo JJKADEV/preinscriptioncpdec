@@ -15,11 +15,24 @@ Route::get('/nouveaux_bacheliers/inscription', [NouveauxBacheliersController::cl
 // Route for processing the second step of the nouveaux bacheliers form (method POST)
 Route::post('/nouveaux_bacheliers/inscription', [NouveauxBacheliersController::class, 'processSecondStepForm']);
 
+//route Anciens Bacheliers
+// Route for displaying the first step of the nouveaux bacheliers form
+Route::get('/anciens_bacheliers', [AnciensBacheliersController::class, 'showFirstStepForm'])->name('firstStepForm');
+
+// Route for processing the first step of the nouveaux bacheliers form (method POST)
+Route::post('/anciens_bacheliers', [AnciensBacheliersController::class, 'processFirstStepForm']);
+
+// Route for displaying the second step of the nouveaux bacheliers form
+Route::get('/anciens_bacheliers/inscription', [AnciensBacheliersController::class, 'showSecondStepForm'])->name('secondStepForm');
+
+// Route for processing the second step of the nouveaux bacheliers form (method POST)
+Route::post('/anciens_bacheliers/inscription', [AnciensBacheliersController::class, 'processSecondStepForm']);
+
 // Route for displaying the formulaire d'inscription des anciens bacheliers (assuming it's already defined)
-Route::get('/anciens_bacheliers', [FormulaireController::class, 'anciensBacheliersForm']);
+//Route::get('/anciens_bacheliers', [FormulaireController::class, 'anciensBacheliersForm']);
 
 // Route for processing the inscription des anciens bacheliers (assuming it's already defined)
-Route::post('/anciens_bacheliers/inscription', [FormulaireController::class, 'inscriptionAnciensBacheliers']);
+//Route::post('/anciens_bacheliers/inscription', [FormulaireController::class, 'inscriptionAnciensBacheliers']);
 
 Route::get('/success-page', function () {
     // Replace 'success_page' with the actual name of your success page view

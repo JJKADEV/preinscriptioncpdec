@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NouveauxBacheliers;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
-class NouveauxBacheliersController extends Controller
+class AnciensBacheliersController extends Controller
 {
     // Afficher la première étape du formulaire
     public function showFirstStepForm()
