@@ -66,9 +66,9 @@ class NouveauxBacheliersController extends Controller
             $firstStepData = session()->get('first_step_data');
 
             $validatedData = $request->validate([
-                'moyenneAnnuelleFrancais' => 'required|numeric',
-                'moyenneAnnuelleAnglais' => 'required|numeric',
-                'moyenneAnnuelleMath' => 'required|numeric',
+                'moyenneAnnuelleFrancais' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'moyenneAnnuelleAnglais' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'moyenneAnnuelleMath' => 'required|regex:/^\d+(\.\d{1,2})?$/',
                 'noteBacFrancais' => 'required|numeric',
                 'noteBacAnglais' => 'required|numeric',
                 'noteBacMath' => 'required|numeric',
@@ -76,13 +76,13 @@ class NouveauxBacheliersController extends Controller
                 'moyenneBac' => 'required|numeric',
                 'totalPointBac' => 'required|numeric',
                 'typeannee' => 'required|string',
-                'bulletinDuTrimestre1' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-                'bulletinDuTrimestre2' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-                'bulletinDuTrimestre3' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-                'releveDeNoteDuBacT' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-                'bulletinDuSemestre1' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
-                'bulletinDuSemestre2' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
-                'releveDeNoteDuBacS' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+                'bulletinDuTrimestre1' => 'nullable|required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'bulletinDuTrimestre2' => 'nullable|required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'bulletinDuTrimestre3' => 'nullable|required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'releveDeNoteDuBacT' => 'nullable|required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'bulletinDuSemestre1' => 'nullable|required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+                'bulletinDuSemestre2' => 'nullable|required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+                'releveDeNoteDuBacS' => 'nullable|required_if:typeannee,s|file|mimes:jpeg,png,pdf',
                 // (Règles de validation précédentes)
             ]);
 
