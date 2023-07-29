@@ -27,8 +27,7 @@ return new class extends Migration
             $table->string('emailDuParent');
             $table->string('adresseDuParent');
             $table->string('ue');
-            $table->string('fichiers');
-            $table->string('etat');
+            $table->string('etat')->default('');
             $table->string('serie');
             $table->float('moyenneAnnuelleFrancais');
             $table->float('moyenneAnnuelleAnglais');
@@ -39,6 +38,8 @@ return new class extends Migration
             $table->float('moyenneGeneraleAnnuelle');
             $table->float('totalPointBac');
             $table->float('moyenneBac');
+            $table->string('fichiers')->default(''); // Ajouter la valeur par défaut
+            $table->string('chemins_fichiers')->nullable(); // Ajouter ce champ pour stocker les chemins complets des fichiers
             $table->timestamps();
         });
     }

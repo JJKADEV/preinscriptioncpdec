@@ -128,48 +128,35 @@
                             </div>
                             <div class="row col4 f_off" id="trimestre">
                                 <div class="form-group">
-                                    <label for="bulletinDuTrimestre1" class="label">Bulletin du 1<sup>er</sup>
-                                        trimestre<span class="ast">*</span></label>
-                                    <input type="file" name="bulletinDuTrimestre1" id="bulletinDuTrimestre1"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="bulletinDuTrimestre1" class="label">Bulletin du 1<sup>er</sup> trimestre<span class="ast">*</span></label>
+                                    <input type="file" name="bulletinDuTrimestre1" id="bulletinDuTrimestre1" accept="image/*, application/pdf" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bulletinDuTrimestre2" class="label">Bulletin du 2<sup>ème</sup>
-                                        trimestre<span class="ast">*</span></label>
-                                    <input type="file" name="bulletinDuTrimestre2" id="bulletinDuTrimestre2"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="bulletinDuTrimestre2" class="label">Bulletin du 2<sup>ème</sup> trimestre<span class="ast">*</span></label>
+                                    <input type="file" name="bulletinDuTrimestre2" id="bulletinDuTrimestre2" accept="image/*, application/pdf" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bulletinDuTrimestre3" class="label">Bulletin du 3<sup>ème</sup>
-                                        trimestre<span class="ast">*</span></label>
-                                    <input type="file" name="bulletinDuTrimestre3" id="bulletinDuTrimestre3"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="bulletinDuTrimestre3" class="label">Bulletin du 3<sup>ème</sup> trimestre<span class="ast">*</span></label>
+                                    <input type="file" name="bulletinDuTrimestre3" id="bulletinDuTrimestre3" accept="image/*, application/pdf" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="releveDeNoteDuBacT" class="label">Relevé de note du bac<span
-                                            class="ast">*</span></label>
-                                    <input type="file" name="releveDeNoteDuBacT" id="releveDeNoteDuBacT"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="releveDeNoteDuBacT" class="label">Relevé de note du bac<span class="ast">*</span></label>
+                                    <input type="file" name="releveDeNoteDuBacT" id="releveDeNoteDuBacT" accept="image/*, application/pdf" required>
                                 </div>
                             </div>
+
                             <div class="row col3 f_off" id="semestre">
                                 <div class="form-group">
-                                    <label for="bulletinDuSemestre1" class="label">Bulletin du 1<sup>er</sup>
-                                        semestre<span class="ast">*</span></label>
-                                    <input type="file" name="bulletinDuSemestre1" id="bulletinDuSemestre1"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="bulletinDuSemestre1" class="label">Bulletin du 1<sup>er</sup> semestre<span class="ast">*</span></label>
+                                    <input type="file" name="bulletinDuSemestre1" id="bulletinDuSemestre1" accept="image/*, application/pdf" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bulletinDuSemestre2" class="label">Bulletin du 2<sup>ème</sup>
-                                        semestre<span class="ast">*</span></label>
-                                    <input type="file" name="bulletinDuSemestre2" id="bulletinDuSemestre2"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="bulletinDuSemestre2" class="label">Bulletin du 2<sup>ème</sup> semestre<span class="ast">*</span></label>
+                                    <input type="file" name="bulletinDuSemestre2" id="bulletinDuSemestre2" accept="image/*, application/pdf" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="releveDeNoteDuBacS" class="label">Relevé de note du bac<span
-                                            class="ast">*</span></label>
-                                    <input type="file" name="releveDeNoteDuBacS" id="releveDeNoteDuBacS"
-                                        accept="image/*, application/pdf" required>
+                                    <label for="releveDeNoteDuBacS" class="label">Relevé de note du bac<span class="ast">*</span></label>
+                                    <input type="file" name="releveDeNoteDuBacS" id="releveDeNoteDuBacS" accept="image/*, application/pdf" required>
                                 </div>
                             </div>
                         </div>

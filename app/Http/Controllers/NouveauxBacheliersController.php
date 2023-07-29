@@ -3,20 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\NouveauxBacheliers;
+use Illuminate\Support\Facades\Storage;
 
 class NouveauxBacheliersController extends Controller
 {
-    // Show the first step of the form
+    // Afficher la première étape du formulaire
     public function showFirstStepForm()
     {
         return view('nouveaux_bacheliers1');
     }
 
-    // Handle the first step form data submission
+    // Traiter la soumission des données de la première étape du formulaire
     public function processFirstStepForm(Request $request)
     {
-
-       
         $validatedData = $request->validate([
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
@@ -36,59 +36,95 @@ class NouveauxBacheliersController extends Controller
             'ue.*' => 'required|string',
         ]);
 
-        // Store the first step form data in session
+        // Stocker les données de la première étape dans la session
         session()->put('first_step_data', $validatedData);
 
         return redirect()->route('secondStepForm');
     }
 
-    // Show the second step of the form
+    // Afficher la deuxième étape du formulaire
     public function showSecondStepForm()
     {
-        // Retrieve the first step data from session
-        $firstStepData = session()->get('first_step_data');
+        // Vérifier si les données de la première étape existent dans la session
+        if (session()->has('first_step_data')) {
+            // Récupérer les données de la première étape depuis la session
+            $firstStepData = session()->get('first_step_data');
 
-        return view('nouveaux_bacheliers2', compact('firstStepData'));
+            return view('nouveaux_bacheliers2', compact('firstStepData'));
+        } else {
+            // Rediriger vers la première étape du formulaire si les données n'existent pas
+            return redirect()->route('firstStepForm');
+        }
     }
 
-    // Handle the second step form data submission
+    // Traiter la soumission des données de la deuxième étape du formulaire
     public function processSecondStepForm(Request $request)
     {
+        // Vérifier si les données de la première étape existent dans la session
+        if (session()->has('first_step_data')) {
+            // Récupérer les données de la première étape depuis la session
+            $firstStepData = session()->get('first_step_data');
 
-        $validatedData = $request->validate([
-            'moyenneAnnuelleFrancais' => 'required|numeric',
-            'moyenneAnnuelleAnglais' => 'required|numeric',
-            'moyenneAnnuelleMath' => 'required|numeric',
-            'noteBacFrancais' => 'required|numeric',
-            'noteBacAnglais' => 'required|numeric',
-            'noteBacMath' => 'required|numeric',
-            'moyenneGeneraleAnnuelle' => 'required|numeric',
-            'moyenneBac' => 'required|numeric',
-            'totalPointBac' => 'required|numeric',
-            'typeannee' => 'required|string',
-            'bulletinDuTrimestre1' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-            'bulletinDuTrimestre2' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-            'bulletinDuTrimestre3' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-            'releveDeNoteDuBacT' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
-            'bulletinDuSemestre1' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
-            'bulletinDuSemestre2' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
-            'releveDeNoteDuBacS' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
-        ]);
+            $validatedData = $request->validate([
+                'moyenneAnnuelleFrancais' => 'required|numeric',
+                'moyenneAnnuelleAnglais' => 'required|numeric',
+                'moyenneAnnuelleMath' => 'required|numeric',
+                'noteBacFrancais' => 'required|numeric',
+                'noteBacAnglais' => 'required|numeric',
+                'noteBacMath' => 'required|numeric',
+                'moyenneGeneraleAnnuelle' => 'required|numeric',
+                'moyenneBac' => 'required|numeric',
+                'totalPointBac' => 'required|numeric',
+                'typeannee' => 'required|string',
+                'bulletinDuTrimestre1' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'bulletinDuTrimestre2' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'bulletinDuTrimestre3' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'releveDeNoteDuBacT' => 'required_if:typeannee,t|file|mimes:jpeg,png,pdf',
+                'bulletinDuSemestre1' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+                'bulletinDuSemestre2' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+                'releveDeNoteDuBacS' => 'required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+                // (Règles de validation précédentes)
+            ]);
 
-        // Merge first step data from session with second step data
-        $completeFormData = array_merge(session()->get('first_step_data'), $validatedData);
+            // Fusionner les données de la première étape avec les données de la deuxième étape
+            $completeFormData = array_merge($firstStepData, $validatedData);
 
-        dd($completeFormData);
+            // Transformer le tableau $ue en une chaîne séparée par des virgules
+            if (isset($completeFormData['ue']) && is_array($completeFormData['ue'])) {
+                $completeFormData['ue'] = implode(',', $completeFormData['ue']);
+            }
 
-        // Process the complete form data, for example, store in the database
-        // Your code to store the data in the database goes here...
+            // Valider et stocker les fichiers
+            $fileFields = [
+                'bulletinDuTrimestre1',
+                'bulletinDuTrimestre2',
+                'bulletinDuTrimestre3',
+                'releveDeNoteDuBacT',
+                'bulletinDuSemestre1',
+                'bulletinDuSemestre2',
+                'releveDeNoteDuBacS',
+            ];
 
-        // Clear the session data as the form submission is complete
-        session()->forget('first_step_data');
+            foreach ($fileFields as $fileField) {
+                if ($request->hasFile($fileField)) {
+                    $path = $request->file($fileField)->store('fichiers');
+                    $completeFormData[$fileField] = $path;
+                }
+            }
 
-        // Redirect to a success page or any other appropriate page
-        return redirect()->route('successPage');
+            // Traiter les données complètes du formulaire et les enregistrer dans la base de données
+            NouveauxBacheliers::create($completeFormData);
+
+            // Effacer les données de la session car la soumission du formulaire est terminée
+            session()->forget('first_step_data');
+
+            // Rediriger vers une page de succès ou toute autre page appropriée
+            return redirect()->route('successPage');
+        } else {
+            // Rediriger vers la première étape du formulaire si les données n'existent pas dans la session
+            return redirect()->route('firstStepForm');
+        }
     }
 
-    // Add other controller methods, if needed
+    // Ajouter d'autres méthodes du contrôleur, si nécessaire
 }

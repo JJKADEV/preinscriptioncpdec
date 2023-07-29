@@ -20,3 +20,8 @@ Route::get('/anciens_bacheliers', [FormulaireController::class, 'anciensBachelie
 
 // Route for processing the inscription des anciens bacheliers (assuming it's already defined)
 Route::post('/anciens_bacheliers/inscription', [FormulaireController::class, 'inscriptionAnciensBacheliers']);
+
+Route::get('/success-page', function () {
+    // Replace 'success_page' with the actual name of your success page view
+    return view('success_page');
+})->name('successPage');
