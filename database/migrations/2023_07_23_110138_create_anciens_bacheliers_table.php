@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('dateDeNaissance');
             $table->string('lieuDeNaissance');
             $table->string('nationalite');
-            $table->string('etablissementDorigine');
+            $table->string('etablissementDorigine')->nullable();
             $table->string('contact');
             $table->string('email');
             $table->string('nomDuParent');
@@ -27,13 +27,14 @@ return new class extends Migration
             $table->string('emailDuParent');
             $table->string('adresseDuParent');
             $table->string('ue');
-            $table->string('fichiers');
-            $table->string('etat');
-            $table->string('diplome');
-            $table->string('anneeDuDiplome');
-            $table->string('profession');
-            $table->string('ves');
-            $table->string('cours');
+            $table->string('diplome')->default('choisir');
+            $table->integer('anneeDuDiplome')->default(2023);; // Vous pouvez remplacer '2023' par une autre valeur par défaut si nécessaire
+            $table->string('profession')->default('');
+            $table->string('entreprise')->nullable();
+            $table->string('ves')->default('');
+            $table->string('cours')->default('');
+            $table->string('fichiers')->default(''); // Ajouter la valeur par défaut
+            $table->string('chemins_fichiers')->nullable(); // Ajouter ce champ pour stocker les chemins complets des fichiers
             $table->timestamps();
         });
     }
