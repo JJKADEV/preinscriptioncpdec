@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\NouveauxBacheliers;
-use App\Models\AnciensBacheliers; 
-use PDF; // Assurez-vous d'importer le modèle approprié
+use App\Models\AnciensBacheliers; // Assurez-vous d'importer le modèle approprié
 
 class FicheInscriptionController extends Controller
 {
@@ -29,8 +28,7 @@ class FicheInscriptionController extends Controller
         // Si le candidat Nouveau Bachelier est trouvé, affichez la vue appropriée
         if ($nouveauBachelier) {
             // Chargez la vue de la fiche d'inscription avec les données du candidat
-            $pdf = PDF::loadView('fichenb', compact('nouveauBachelier'));
-            return $pdf->download('fiche_preinscriptionb.pdf');
+            return view('fichenb', compact('nouveauBachelier'));
         }
 
         // Sinon, recherchez dans la table AnciensBacheliers
@@ -41,13 +39,10 @@ class FicheInscriptionController extends Controller
         // Si le candidat Ancien Bachelier est trouvé, affichez la vue appropriée
         if ($ancienBachelier) {
             // Chargez la vue de la fiche d'inscription avec les données du candidat
-            $pdf = PDF::loadView('ficheab', compact('ancienBachelier'));
-            return $pdf->download('fiche_preinscriptionab.pdf');
+            return view('ficheab', compact('ancienBachelier'));
         }
 
         // Si aucun candidat correspondant n'est trouvé, redirigez avec un message d'erreur
         return redirect()->route('imprimerFicheForm')->with('error', 'Désolé votre compte n’existe pas merci de faire votre préinscription en ligne.');
     }
-
-
 }

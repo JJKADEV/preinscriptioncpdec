@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ asset('fichenb/css/style.css') }}">
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 
     <style>
         .banner {
@@ -136,25 +137,32 @@
         }
     </style>
     <style>
-        .container {
-            position: relative;
-        }
-    
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("fichenb/images/cpdecimprim.png");
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 30%;
-            opacity: 0.5; /* Ajustez la valeur d'opacité selon vos besoins */
-            pointer-events: none; /* Permet de cliquer à travers le filigrane */
-        }
-    </style>
+    .container {
+        position: relative;
+    }
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("fichenb/images/cpdecimprim.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30%;
+        opacity: 0.2; /* Ajustez la valeur d'opacité selon vos besoins */
+        pointer-events: none; /* Permet de cliquer à travers le filigrane */
+    }
+</style>
+<style>
+    .container {
+        position: relative;
+        background-color: #fff; /* Ajoutez votre couleur de fond souhaitée */
+        color: #333; /* Ajoutez votre couleur de texte souhaitée */
+    }
+</style>
     <title>Fiche de preinscription</title>
 </head>
 <body>
@@ -239,5 +247,11 @@
             {{ $nouveauBachelier->totalPointBac }}
         </div>
     </div>
+    <button onclick="printPage()">Imprimer</button>
+    <script>
+        function printPage() {
+            window.print();
+        }
+    </script>   
 </body>
 </html>
