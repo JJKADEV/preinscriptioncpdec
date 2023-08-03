@@ -16,23 +16,32 @@
 </head>
 
 <body>
-    <div class="banner">
+<div class="banner">
         <img src="{{ asset('nouveaux_bachelier/images/banner.jpg') }}" alt="Banner Image">
     </div>
     <style>
-        .banner {
-            text-align: center;
-            padding: 20px;
-            background-color: transparent;
-            border-radius: 10px;
-            overflow: hidden;
-        }
+    .banner {
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        max-width: 100%;
+        overflow: hidden;
+    }
 
-        .banner img {
-            max-width: 100%;
-            height: auto;
+    .banner img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .banner {
+            padding: 10px;
         }
-    </style>
+    }
+</style>
     <br>
     <!-- <style>
     marquee {
@@ -43,6 +52,40 @@
 </style>
 <marquee direction="scroll">Un texte défilant créé avec l'élément HTML Marquee et stylé avec les propriétés CSS.</marquee>
 <br> -->
+<style>
+    .notification {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(45deg, #135492, #8e2d40);
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        animation: fadeInOut 5s ease infinite;
+    }
+
+    @keyframes fadeInOut {
+        0%, 100% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .notification {
+            padding: 10px; /* Diminuer le padding pour une taille plus compacte sur les petits écrans */
+            font-size: 16px; /* Réduire la taille de police pour mieux s'adapter */
+        }
+    }
+</style>
+<div class="notification">
+    🎓 Félicitations aux nouveaux bacheliers ! Bienvenue au Centre De Préparation Au Diplome De L'expertise Comptable-CPDEC. 🎉
+</div>
+<br>
     <div class="main">
         @if(session('status'))
         <div class="alert alert-success">

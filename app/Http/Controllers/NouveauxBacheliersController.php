@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NouveauxBacheliers;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class NouveauxBacheliersController extends Controller
 {
@@ -67,9 +66,9 @@ class NouveauxBacheliersController extends Controller
             $firstStepData = session()->get('first_step_data');
 
             $validatedData = $request->validate([
-                'moyenneAnnuelleFrancais' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-                'moyenneAnnuelleAnglais' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-                'moyenneAnnuelleMath' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+                'moyenneAnnuelleFrancais' => 'required|numeric', // Retirer la règle "regex" ici
+                'moyenneAnnuelleAnglais' => 'required|numeric', // Retirer la règle "regex" ici
+                'moyenneAnnuelleMath' => 'required|numeric', // Retirer la règle "regex" ici
                 'noteBacFrancais' => 'required|numeric',
                 'noteBacAnglais' => 'required|numeric',
                 'noteBacMath' => 'required|numeric',
@@ -84,8 +83,14 @@ class NouveauxBacheliersController extends Controller
                 'bulletinDuSemestre1' => 'nullable|required_if:typeannee,s|file|mimes:jpeg,png,pdf',
                 'bulletinDuSemestre2' => 'nullable|required_if:typeannee,s|file|mimes:jpeg,png,pdf',
                 'releveDeNoteDuBacS' => 'nullable|required_if:typeannee,s|file|mimes:jpeg,png,pdf',
+
                 // (Règles de validation précédentes)
             ]);
+
+            // Convertir les moyennes saisies (avec virgules) en format valide (avec points)
+            $validatedData['moyenneAnnuelleFrancais'] = str_replace(',', '.', $validatedData['moyenneAnnuelleFrancais']);
+            $validatedData['moyenneAnnuelleAnglais'] = str_replace(',', '.', $validatedData['moyenneAnnuelleAnglais']);
+            $validatedData['moyenneAnnuelleMath'] = str_replace(',', '.', $validatedData['moyenneAnnuelleMath']);
 
             // Fusionner les données de la première étape avec les données de la deuxième étape
             $completeFormData = array_merge($firstStepData, $validatedData);

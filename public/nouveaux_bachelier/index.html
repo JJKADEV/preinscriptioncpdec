@@ -14,25 +14,68 @@
 
     
 </head>
-<body>
-    <div class="banner">
-        <img src="images/banner.jpg" alt="Banner Image">
-    </div>
-    <style>
-        .banner {
-            text-align: center;
-            padding: 20px;
-            background-color: transparent;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .banner img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
-    <br>
+<div class="banner">
+    <img src="{{ asset('anciens_bachelier/images/banner.jpg') }}" alt="Banner Image">
+</div>
+<style>
+.banner {
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.banner img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .banner {
+        padding: 10px;
+    }
+}
+</style>
+<br>
+<style>
+.notification {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(45deg, #135492, #8e2d40);
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    animation: fadeInOut 5s ease infinite;
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .notification {
+        padding: 10px; /* Diminuer le padding pour une taille plus compacte sur les petits Ã©crans */
+        font-size: 16px; /* RÃ©duire la taille de police pour mieux s'adapter */
+    }
+}
+</style>
+<div class="notification">
+ðŸŽ“  Bienvenue au Centre De PrÃ©paration Au Diplome De L'expertise Comptable-CPDEC. ðŸŽ‰
+</div>
+<br>   
+
     <!-- <style> 
     marquee {
         width: 100%;

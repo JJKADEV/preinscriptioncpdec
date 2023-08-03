@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NouveauxBacheliersController;
 use App\Http\Controllers\AnciensBacheliersController;
+use App\Http\Controllers\FicheInscriptionController;
 
 // Route for displaying the first step of the nouveaux bacheliers form
 Route::get('/nouveaux_bacheliers', [NouveauxBacheliersController::class, 'showFirstStepForm'])->name('firstStepForm');
@@ -44,3 +45,6 @@ Route::get('/success-pageanciens', function () {
     // Replace 'success_page' with the actual name of your success page view
     return view('success_pageanciens');
 })->name('success_pageanciens');
+
+Route::get('/imprimer-fiche', [FicheInscriptionController::class, 'showImprimerFicheForm'])->name('imprimerFicheForm');
+Route::post('/imprimer-fiche', [FicheInscriptionController::class, 'imprimerFiche'])->name('imprimerFiche');
