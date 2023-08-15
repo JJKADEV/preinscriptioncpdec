@@ -40,6 +40,8 @@ return new class extends Migration
             $table->float('moyenneBac');
             $table->string('fichiers')->default(''); // Ajouter la valeur par défaut
             $table->string('chemins_fichiers')->nullable(); // Ajouter ce champ pour stocker les chemins complets des fichiers
+            $table->float('moyenneAdmission')->nullable(); // Ajouter la colonne moyenneAdmission
+            $table->string('status')->default(''); // Ajouter la colonne status
             $table->timestamps();
         });
     }

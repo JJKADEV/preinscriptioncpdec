@@ -43,6 +43,11 @@
             padding: 10px;
         }
     }
+    .message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
 </style>
     <br>
     <!-- <style>
@@ -122,17 +127,20 @@
                             <h2>Notes du bac</h2>
                         </div>
                         <div class="row col3">
-                            <div class="form-group">
-                                <label for="notebacfran" class="label">Français<span class="ast">*</span></label>
-                                <input type="number" name="noteBacFrancais" id="noteBacFrancais" required>
-                            </div>
+                        <div class="form-group">
+                            <label for="notebacfran" class="label">Français<span class="ast">*</span></label>
+                            <input type="number" name="noteBacFrancais" id="noteBacFrancais" required>
+                            <span class="message">Veuillez renseigner votre note coefficientée.</span>
+                        </div>
                             <div class="form-group">
                                 <label for="notebacang" class="label">Anglais<span class="ast">*</span></label>
                                 <input type="number" name="noteBacAnglais" id="noteBacAnglais" required>
+                                <span class="message">Veuillez renseigner votre note coefficientée.</span>
                             </div>
                             <div class="form-group">
                                 <label for="notebacmath" class="label">Mathématiques<span class="ast">*</span></label>
                                 <input type="number" name="noteBacMath" id="noteBacMath" required>
+                                <span class="message">Veuillez renseigner votre note coefficientée.</span>
                             </div>
                         </div>
                         <div>

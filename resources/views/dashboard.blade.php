@@ -34,7 +34,7 @@
             margin-bottom: 20px;
         }
         .button {
-            background-color: #007bff;
+            background-color: #135492;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -154,6 +154,8 @@
         <div class="button-container">
             <button class="button" id="nouveauxBacheliersButton">Nouveau Bachelier</button>
             <button class="button" id="anciensBacheliersButton">Ancien Bachelier</button>
+            <input type="text" id="searchInput" placeholder="Rechercher par nom">
+            <button class="button" id="searchButton">Rechercher</button>
         </div>
 
         <div id="nouveauxBacheliersList" class="bacheliers-list">
@@ -163,8 +165,8 @@
                 <li>
                 <table class="bachelier-table">
  <tr>
-    <td><strong>Nom et Prénom:</strong></td>
-    <td>{{ $nouveauBachelier->nom }} {{ $nouveauBachelier->prenom }}</td>
+    <td style="background-color: #00A896;"><strong>Nom et Prénom:</strong></td>
+    <td style="background-color: #00A896;">{{ $nouveauBachelier->nom }} {{ $nouveauBachelier->prenom }}</td>
 </tr>
 <tr>
     <td><strong>Date de Naissance:</strong></td>
@@ -262,6 +264,19 @@
     <td><strong>Moyenne Bac:</strong></td>
     <td>{{ $nouveauBachelier->moyenneBac }}</td>
 </tr>
+<tr>
+    <td><strong>Moyenne d'admission:</strong></td>
+    <td>{{ $nouveauBachelier->moyenneAdmission }}</td>
+</tr>
+<tr>
+    <td><strong>STATUT :</strong></td>
+    <td>
+        <button class="valider-button">Valider</button>
+        <button class="refuser-button">Refuser</button>
+    </td>
+    
+</tr>
+
 
             </table>
 </li>
@@ -277,8 +292,8 @@
                 <li>
   <table class="bachelier-table">
                 <tr>
-    <td><strong>Nom et Prénom:</strong></td>
-    <td>{{ $ancienBachelier->nom }} {{ $ancienBachelier->prenom }}</td>
+    <td style="background-color: #00A896;"><strong>Nom et Prénom:</strong></td>
+    <td style="background-color: #00A896;">{{ $ancienBachelier->nom }} {{ $ancienBachelier->prenom }}</td>
 </tr>
 <tr>
     <td><strong>Date de Naissance:</strong></td>
@@ -380,5 +395,8 @@
             nouveauxBacheliersList.classList.remove('active');
         });
     </script>
+
+
+        
 </body>
 </html>

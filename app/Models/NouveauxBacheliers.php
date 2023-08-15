@@ -38,6 +38,8 @@ class NouveauxBacheliers extends Model
         'moyenneGeneraleAnnuelle',
         'totalPointBac',
         'moyenneBac',
+        'moyenneAdmission', // Ajouter cette ligne
+        'status', // Ajouter cette ligne
     ];
 
     // Si tu as besoin de définir des relations avec d'autres modèles, tu peux le faire ici

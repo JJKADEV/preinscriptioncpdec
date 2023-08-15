@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NouveauxBacheliersController;
 use App\Http\Controllers\AnciensBacheliersController;
 use App\Http\Controllers\FicheInscriptionController;
-use App\Http\Controllers\DashboardController;
 
 // Route for displaying the first step of the nouveaux bacheliers form
 Route::get('/nouveaux_bacheliers', [NouveauxBacheliersController::class, 'showFirstStepForm'])->name('firstStepForm');
@@ -33,8 +32,6 @@ Route::get('/anciens_bacheliers/inscription', [AnciensBacheliersController::clas
 Route::post('/anciens_bacheliers/inscription', [AnciensBacheliersController::class, 'processSecondStepForm']);
 
 
-
-
 //route succes nouveaux bacheliers
 
 Route::get('/success-page', function () {
@@ -54,9 +51,3 @@ Route::post('/imprimer-fiche', [FicheInscriptionController::class, 'imprimerFich
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/dashboard', [DashboardController::class, 'showBacheliersData'])->middleware('auth');
-
-
-
-

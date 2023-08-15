@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\NouveauxBacheliers;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Validator;
 class NouveauxBacheliersController extends Controller
 {
     // Afficher la première étape du formulaire
@@ -66,107 +66,14 @@ class NouveauxBacheliersController extends Controller
             $firstStepData = session()->get('first_step_data');
 
             $validatedData = $request->validate([
-                'moyenneAnnuelleFrancais' => [
-                    'required',
-                    'numeric',
-                    function ($attribute, $value, $fail) {
-                        // Vérifier si la valeur contient une virgule
-                        if (strpos($value, ',') !== false) {
-                            // Remplacer la virgule par un point
-                            $value = str_replace(',', '.', $value);
-                        }
-                
-                        // Vérifier si la valeur est numérique
-                        if (!is_numeric($value)) {
-                            $fail('Veuillez saisir une valeur valide pour la moyenne française.');
-                        }
-                    },
-                ],
-                'moyenneAnnuelleAnglais' => [
-                    'required',
-                    'numeric',
-                    function ($attribute, $value, $fail) {
-                        // Vérifier si la valeur contient une virgule
-                        if (strpos($value, ',') !== false) {
-                            // Remplacer la virgule par un point
-                            $value = str_replace(',', '.', $value);
-                        }
-                
-                        // Vérifier si la valeur est numérique
-                        if (!is_numeric($value)) {
-                            $fail('Veuillez saisir une valeur valide pour la moyenne Anglais.');
-                        }
-                    },
-                ],
-                'moyenneAnnuelleMath' => [
-                    'required',
-                    'numeric',
-                    function ($attribute, $value, $fail) {
-                        // Vérifier si la valeur contient une virgule
-                        if (strpos($value, ',') !== false) {
-                            // Remplacer la virgule par un point
-                            $value = str_replace(',', '.', $value);
-                        }
-                
-                        // Vérifier si la valeur est numérique
-                        if (!is_numeric($value)) {
-                            $fail('Veuillez saisir une valeur valide pour la moyenne Annuelle Mathématique.');
-                        }
-                    },
-                ], // Retirer la règle "regex" ici // Retirer la règle "regex" ici
-            
+                'moyenneAnnuelleFrancais' => 'required|numeric_with_commas',
+                'moyenneAnnuelleAnglais' => 'required|numeric_with_commas',
+                'moyenneAnnuelleMath' => 'required|numeric_with_commas',
                 'noteBacFrancais' => 'required|numeric',
                 'noteBacAnglais' => 'required|numeric',
                 'noteBacMath' => 'required|numeric',
-                'moyenneAnnuelleFrancais' => [
-                    'required',
-                    'numeric',
-                    function ($attribute, $value, $fail) {
-                        // Vérifier si la valeur contient une virgule
-                        if (strpos($value, ',') !== false) {
-                            // Remplacer la virgule par un point
-                            $value = str_replace(',', '.', $value);
-                        }
-                
-                        // Vérifier si la valeur est numérique
-                        if (!is_numeric($value)) {
-                            $fail('Veuillez saisir une valeur valide pour la moyenne française.');
-                        }
-                    },
-                ],
-                'moyenneGeneraleAnnuelle' => [
-                    'required',
-                    'numeric',
-                    function ($attribute, $value, $fail) {
-                        // Vérifier si la valeur contient une virgule
-                        if (strpos($value, ',') !== false) {
-                            // Remplacer la virgule par un point
-                            $value = str_replace(',', '.', $value);
-                        }
-                
-                        // Vérifier si la valeur est numérique
-                        if (!is_numeric($value)) {
-                            $fail('Veuillez saisir une valeur valide pour la moyenne Générale Annuelle.');
-                        }
-                    },
-                ],
-                'moyenneBac' => [
-                    'required',
-                    'numeric',
-                    function ($attribute, $value, $fail) {
-                        // Vérifier si la valeur contient une virgule
-                        if (strpos($value, ',') !== false) {
-                            // Remplacer la virgule par un point
-                            $value = str_replace(',', '.', $value);
-                        }
-                
-                        // Vérifier si la valeur est numérique
-                        if (!is_numeric($value)) {
-                            $fail('Veuillez saisir une valeur valide pour la moyenne du BAC.');
-                        }
-                    },
-                ],
-                'moyenneBac' => 'required|numeric',
+                'moyenneGeneraleAnnuelle' => 'required|numeric_with_commas',
+                'moyenneBac' => 'required|numeric_with_commas',
                 'totalPointBac' => 'required|numeric',
                 'typeannee' => 'required|string',
                 'bulletinDuTrimestre1' => 'nullable|required_if:typeannee,t|file|mimes:jpeg,png,pdf',
@@ -184,6 +91,8 @@ class NouveauxBacheliersController extends Controller
             $validatedData['moyenneAnnuelleFrancais'] = str_replace(',', '.', $validatedData['moyenneAnnuelleFrancais']);
             $validatedData['moyenneAnnuelleAnglais'] = str_replace(',', '.', $validatedData['moyenneAnnuelleAnglais']);
             $validatedData['moyenneAnnuelleMath'] = str_replace(',', '.', $validatedData['moyenneAnnuelleMath']);
+            $validatedData['moyenneGeneraleAnnuelle'] = str_replace(',', '.', $validatedData['moyenneGeneraleAnnuelle']);
+            $validatedData['moyenneBac'] = str_replace(',', '.', $validatedData['moyenneBac']);
 
             // Fusionner les données de la première étape avec les données de la deuxième étape
             $completeFormData = array_merge($firstStepData, $validatedData);
@@ -226,15 +135,11 @@ class NouveauxBacheliersController extends Controller
     }
 
 
-    public function insererMoyenneAdmission(NouveauBachelier $nouveauBachelier)
-{
-    $moyenneAdmission = ($nouveauBachelier->moyenneAnnuelleFrancais + $nouveauBachelier->moyenneAnnuelleAnglais + $nouveauBachelier->moyenneAnnuelleMath + ($nouveauBachelier->noteBacFrancais * 2) + ($nouveauBachelier->noteBacAnglais * 1) + ($nouveauBachelier->noteBacMath * 2) + $nouveauBachelier->moyenneGeneraleAnnuelle + $nouveauBachelier->moyenneBac) / 20;
-    $nouveauBachelier->moyenneAdmission = $moyenneAdmission;
-    $nouveauBachelier->save();
-}
-
-// Méthode pour valider un bachelier
-// Méthode pour valider un bachelier
-
     // Ajouter d'autres méthodes du contrôleur, si nécessaire
+    
 }
+// Règle de validation personnalisée pour les nombres à virgules
+// Règle de validation personnalisée pour les nombres à virgules
+Validator::extend('numeric_with_commas', function ($attribute, $value, $parameters, $validator) {
+    return is_numeric(str_replace(',', '.', $value));
+});
