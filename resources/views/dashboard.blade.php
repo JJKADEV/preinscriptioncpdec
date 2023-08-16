@@ -139,6 +139,33 @@
             font-weight: bold;
         }
     </style>
+
+<style>
+    .valider-button, .refuser-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .valider-button:hover {
+        background-color: #45a049;
+    }
+    .refuser-button:hover {
+        background-color: #FF0000;
+    }
+
+    .refuser-button {
+        background-color: #FF0000; /* Nouvelle couleur rouge */
+    }
+</style>
 </head>
 <body>
     <header>
@@ -157,6 +184,10 @@
             <input type="text" id="searchInput" placeholder="Rechercher par nom">
             <button class="button" id="searchButton">Rechercher</button>
         </div>
+        <div class="button-container">
+            <a href="{{ route('liste-admis') }}" class="button">Liste des admis</a>
+            <a href="{{ route('liste-refuses') }}" class="button">Liste des refusés</a>
+       </div>
 
         <div id="nouveauxBacheliersList" class="bacheliers-list">
             <h2>Nouveaux Bacheliers <span> <div class="total-count">{{ count($nouveauxBacheliers) }} nouveau(x) bachelier(s) au total</div></span></h2>
@@ -165,8 +196,8 @@
                 <li>
                 <table class="bachelier-table">
  <tr>
-    <td style="background-color: #00A896;"><strong>Nom et Prénom:</strong></td>
-    <td style="background-color: #00A896;">{{ $nouveauBachelier->nom }} {{ $nouveauBachelier->prenom }}</td>
+    <td style="background-color: #135492;"><strong style="color: #fff">Nom et Prénom:</strong></td>
+    <td style="background-color: #135492; color: #fff">{{ $nouveauBachelier->nom }} {{ $nouveauBachelier->prenom }}</td>
 </tr>
 <tr>
     <td><strong>Date de Naissance:</strong></td>
@@ -265,18 +296,23 @@
     <td>{{ $nouveauBachelier->moyenneBac }}</td>
 </tr>
 <tr>
-    <td><strong>Moyenne d'admission:</strong></td>
-    <td>{{ $nouveauBachelier->moyenneAdmission }}</td>
+    <td style="background-color: #00A896;"><strong>Moyenne d'admission:</strong></td>
+    <td style="background-color: #00A896;">{{ $nouveauBachelier->moyenneAdmission }}</td>
 </tr>
 <tr>
     <td><strong>STATUT :</strong></td>
+    <form action="{{ route('nouveaux-bacheliers.update-status', ['id' => $nouveauBachelier->id]) }}" method="POST">
+    @csrf
     <td>
-        <button class="valider-button">Valider</button>
-        <button class="refuser-button">Refuser</button>
+        <button class="valider-button" type="submit" name="valider">Valider</button>
+        <button class="refuser-button" type="submit" name="refuser">Refuser</button>
     </td>
-    
+    </form>    
 </tr>
-
+<tr>
+    <td><strong>STATUT DE L'ETUDIANT </strong></td>
+    <td><strong>{{ $nouveauBachelier->status }}</strong></td>
+</tr>
 
             </table>
 </li>
@@ -292,8 +328,8 @@
                 <li>
   <table class="bachelier-table">
                 <tr>
-    <td style="background-color: #00A896;"><strong>Nom et Prénom:</strong></td>
-    <td style="background-color: #00A896;">{{ $ancienBachelier->nom }} {{ $ancienBachelier->prenom }}</td>
+    <td style="background-color: #135492;"><strong style="color: #fff">Nom et Prénom:</strong></td>
+    <td style="background-color: #135492; color: #fff">{{ $ancienBachelier->nom }} {{ $ancienBachelier->prenom }}</td>
 </tr>
 <tr>
     <td><strong>Date de Naissance:</strong></td>
@@ -395,7 +431,21 @@
             nouveauxBacheliersList.classList.remove('active');
         });
     </script>
+     <script>
+    document.getElementById('searchButton').addEventListener('click', function() {
+        var searchValue = document.getElementById('searchInput').value.toLowerCase();
+        var bacheliers = document.querySelectorAll('.bacheliers-list li');
 
+        bacheliers.forEach(function(bachelier) {
+            var nom = bachelier.querySelector('.bachelier-table td:nth-child(2)').textContent.toLowerCase();
+            if (nom.includes(searchValue)) {
+                bachelier.style.display = 'block';
+            } else {
+                bachelier.style.display = 'none';
+            }
+        });
+    });
+</script>
 
         
 </body>

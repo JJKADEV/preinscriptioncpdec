@@ -233,8 +233,35 @@ class NouveauxBacheliersController extends Controller
     $nouveauBachelier->save();
 }
 
+public function updateStatus(Request $request, $id)
+{
+    $nouveauxBacheliers = NouveauxBacheliers::findOrFail($id);
+
+    if ($request->has('valider')) {
+        $nouveauxBacheliers->status = 'admis';
+    } elseif ($request->has('refuser')) {
+        $nouveauxBacheliers->status = 'refusé';
+    }
+
+    $nouveauxBacheliers->save();
+
+    return back();
+
+    // Redirigez ou renvoyez une réponse appropriée selon vos besoins
+}
 // Méthode pour valider un bachelier
 // Méthode pour valider un bachelier
 
     // Ajouter d'autres méthodes du contrôleur, si nécessaire
+    public function listeAdmis()
+    {
+        $etudiantsAdmis = NouveauxBacheliers::where('status', 'admis')->get();
+        return view('liste-admis', ['etudiantsAdmis' => $etudiantsAdmis]);
+    }
+
+    public function listeRefuses()
+    {
+        $etudiantsRefuses = NouveauxBacheliers::where('status', 'refusé')->get();
+        return view('liste-refuses', ['etudiantsRefuses' => $etudiantsRefuses]);
+    }
 }

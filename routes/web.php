@@ -55,8 +55,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'showBacheliersData'])->middleware('auth');
-
-
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'showBacheliersData'])->name('dashboard');
+    Route::post('/nouveaux-bacheliers/{id}/update-status', [NouveauxBacheliersController::class, 'updateStatus'])->name('nouveaux-bacheliers.update-status');
+    Route::get('/liste-admis', [App\Http\Controllers\NouveauxBacheliersController::class, 'listeAdmis'])->name('liste-admis');
+    Route::get('/liste-refuses', [App\Http\Controllers\NouveauxBacheliersController::class, 'listeRefuses'])->name('liste-refuses');
+});
 
