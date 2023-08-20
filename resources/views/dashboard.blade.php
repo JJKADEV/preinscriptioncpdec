@@ -187,9 +187,11 @@
         <div class="button-container">
             <a href="{{ route('liste-admis') }}" class="button">Liste des admis</a>
             <a href="{{ route('liste-refuses') }}" class="button">Liste des refusés</a>
+            <a href="{{ route('liste-admisab') }}" class="button">Liste des admis anciens Bachelier</a>
+            <a href="{{ route('liste-refusesab') }}" class="button">Liste des refusés Anciens bachelier</a>
        </div>
 
-        <div id="nouveauxBacheliersList" class="bacheliers-list">
+       <div id="nouveauxBacheliersList" class="bacheliers-list active">
             <h2>Nouveaux Bacheliers <span> <div class="total-count">{{ count($nouveauxBacheliers) }} nouveau(x) bachelier(s) au total</div></span></h2>
             <ul>
                 @foreach($nouveauxBacheliers as $index => $nouveauBachelier)
@@ -321,7 +323,7 @@
             
         </div>
 
-        <div id="anciensBacheliersList" class="bacheliers-list">
+        <div id="anciensBacheliersList"  class="bacheliers-list active">
             <h2>Anciens Bacheliers <span><div class="total-count">{{ count($anciensBacheliers) }} ancien(s) bachelier(s) au total</div></span></h2>
             <ul>
                 @foreach($anciensBacheliers as $index => $ancienBachelier)
@@ -406,6 +408,19 @@
 <tr>
     <td><strong>Cours:</strong></td>
     <td>{{ $ancienBachelier->cours }}</td>
+</tr>
+<td><strong>STATUT :</strong></td>
+    <form action="{{ route('anciens-bacheliers.update-status', ['id' => $ancienBachelier->id]) }}" method="POST">
+    @csrf
+    <td>
+        <button class="valider-button" type="submit" name="valider">Valider</button>
+        <button class="refuser-button" type="submit" name="refuser">Refuser</button>
+    </td>
+    </form>    
+</tr>
+<tr>
+    <td><strong>STATUT DE L'ETUDIANT </strong></td>
+    <td><strong>{{ $ancienBachelier->status }}</strong></td>
 </tr>
 
 </table>

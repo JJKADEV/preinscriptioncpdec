@@ -116,6 +116,35 @@ class AnciensBacheliersController extends Controller
             return redirect()->route('firstStepForm');
         }
     }
+
+    public function updateStatus(Request $request, $id)
+{
+    $anciensBacheliers = AnciensBacheliers::findOrFail($id);
+
+    if ($request->has('valider')) {
+        $anciensBacheliers->status = 'admis';
+    } elseif ($request->has('refuser')) {
+        $anciensBacheliers->status = 'refusé';
+    }
+
+    $anciensBacheliers->save();
+
+    return back();
+
+    // Redirigez ou renvoyez une réponse appropriée selon vos besoins
+}
+public function listeAdmis()
+{
+    $etudiantsAdmisab = AnciensBacheliers::where('status', 'admis')->get();
+    return view('liste-admisab', ['etudiantsAdmis' => $etudiantsAdmisab]);
+}
+
+public function listeRefuses()
+{
+    $etudiantsRefusesab = AnciensBacheliers::where('status', 'refusé')->get();
+    return view('liste-refusesab', ['etudiantsRefuses' => $etudiantsRefusesab]);
+}
+
     
 
 

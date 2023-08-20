@@ -256,12 +256,14 @@ public function updateStatus(Request $request, $id)
     public function listeAdmis()
     {
         $etudiantsAdmis = NouveauxBacheliers::where('status', 'admis')->get();
+        
         return view('liste-admis', ['etudiantsAdmis' => $etudiantsAdmis]);
     }
 
     public function listeRefuses()
     {
         $etudiantsRefuses = NouveauxBacheliers::where('status', 'refusé')->get();
+        
         return view('liste-refuses', ['etudiantsRefuses' => $etudiantsRefuses]);
     }
 }
